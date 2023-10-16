@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "room",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "elimination",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
