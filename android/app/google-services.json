@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "440786514051",
+    "firebase_url": "https://my-molkky.firebaseio.com",
+    "project_id": "my-molkky",
+    "storage_bucket": "my-molkky.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440786514051:android:dde35b34b2a8b1038cabb6",
+        "android_client_info": {
+          "package_name": "com.example.my_molkky_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnQUDKCmUNZImgA2WvTkOyEYLHBMOOx6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440786514051:android:92472d9429b8b9108cabb6",
+        "android_client_info": {
+          "package_name": "my.molkky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnQUDKCmUNZImgA2WvTkOyEYLHBMOOx6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
