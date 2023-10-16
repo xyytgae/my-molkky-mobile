@@ -2,7 +2,7 @@
 name: 'Issue: リファクタ'
 about: リファクタ
 title: "[Refactor] "
-labels: documentation
+labels: refactor
 assignees: xyytgae
 
 ---

@@ -2,7 +2,7 @@
 name: 'Issue: 新機能'
 about: 機能追加・削除
 title: "[Feature] "
-labels: duplicate
+labels: feature
 assignees: xyytgae
 
 ---

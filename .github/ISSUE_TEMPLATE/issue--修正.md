@@ -2,7 +2,7 @@
 name: 'Issue: 修正'
 about: バグ修正
 title: "[Fix] "
-labels: bug
+labels: fix
 assignees: xyytgae
 
 ---
