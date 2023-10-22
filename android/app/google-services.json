@@ -30,6 +30,13 @@
             {
               "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "440786514051-pqscvckkvnu6qc9dgbhej31d4dnsdfrn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "my-molkky"
+              }
             }
           ]
         }
@@ -59,6 +66,13 @@
             {
               "client_id": "440786514051-780r4v4660npr0sa319u7j48o0nvkmq2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "440786514051-pqscvckkvnu6qc9dgbhej31d4dnsdfrn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "my-molkky"
+              }
             }
           ]
         }
