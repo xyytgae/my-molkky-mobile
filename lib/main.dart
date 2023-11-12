@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:my_molkky_mobile/ui/page/rooms.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+final databaseReference = FirebaseFirestore.instance;
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const Main());
 }
 
@@ -16,54 +24,29 @@ class Main extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const RoomsPage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(title: 'My Molkky'),
     );
   }
 }
 
-class RoomsPage extends StatefulWidget {
-  const RoomsPage({super.key, required this.title});
-
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
   final String title;
 
   @override
-  State<RoomsPage> createState() => _RoomsPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _RoomsPageState extends State<RoomsPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _HomePageState extends State<HomePage> {
+  final PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: PageView(
+        controller: controller,
+        children: [
+          Container(color: Colors.white, child: const RoomsPage()),
+        ],
       ),
     );
   }

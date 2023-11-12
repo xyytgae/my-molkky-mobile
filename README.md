@@ -1,4 +1,4 @@
-# mymolkkymobile
+# my_molkky_mobile
 
 A new Flutter project.
 
