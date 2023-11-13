@@ -1,0 +1,13 @@
+#!/bin/bash
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch_number=$(echo $current_branch | grep -Eo '#[0-9]+')
+
+commit_message=$(cat .git/COMMIT_EDITMSG)
+if [[ $commit_message =~ ^([^:]+): ]]; then
+  commit_message=$(echo "$commit_message" | sed -r "s/^([^:]+):/\1: ${branch_number}/")
+else
+  commit_message="${branch_number} ${commit_message}"
+fi
+
+echo "$commit_message" > .git/COMMIT_EDITMSG
