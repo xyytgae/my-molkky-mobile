@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_molkky_mobile/model/room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_molkky_mobile/model/util/color.dart';
+import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
 
 class RoomsPage extends StatefulWidget {
   const RoomsPage({super.key});
@@ -41,17 +42,17 @@ class _RoomsPageState extends State<RoomsPage> {
               );
             } else if (snapshot.hasData) {
               return Column(
-                  children: snapshot.data!.map((data) {
+                  children: snapshot.data!.map((room) {
                 return Card(
                   margin: const EdgeInsets.all(16),
                   child: ListTile(
-                      title: Text(data.name),
+                      title: Text(room.name),
                       minVerticalPadding: 20,
                       tileColor: HexColor('#fef5e7'),
                       trailing: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/room',
-                                arguments: data);
+                                arguments: RoomPageArguments(room.id));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: HexColor('#38512f'),
