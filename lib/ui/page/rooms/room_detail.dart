@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_molkky_mobile/model/room.dart';
 import 'package:my_molkky_mobile/model/player.dart';
+import 'package:my_molkky_mobile/model/util/color.dart';
 
 class RoomDetailPage extends StatefulWidget {
   final String roomId;
@@ -49,10 +50,10 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
             .collection('players')
             .snapshots();
         snapshots.listen((snapshot) {
-          final playerList = snapshot.docs.map((DocumentSnapshot doc) {
+          final players = snapshot.docs.map((DocumentSnapshot doc) {
             return Player.fromFirestore(doc);
           }).toList();
-          playerController.add(playerList);
+          playerController.add(players);
         });
 
         return playerController.stream;
@@ -73,19 +74,22 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
                 margin: const EdgeInsets.all(16),
                 child: ListTile(
                     title: Text(player.name),
-                    subtitle: Text('★${player.stars}'),
-                    minVerticalPadding: 20,
-                    tileColor: Colors.white,
-                    trailing: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32.0),
+                    subtitle: RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '★',
+                          style: TextStyle(
+                            color: HexColor('#ffa000'),
                           ),
                         ),
-                        child: const Text('Join')),
+                        TextSpan(
+                          text: player.stars.toString(),
+                        ),
+                      ],
+                    )),
+                    minVerticalPadding: 20,
+                    tileColor: HexColor('#fef5e7'),
                     leading: ClipOval(
                       child: SizedBox(
                         width: 50,
@@ -114,17 +118,33 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
               child: const CircularProgressIndicator());
         } else {
           return Scaffold(
+            backgroundColor: HexColor('#f2e4cf'),
+            appBar: AppBar(
+              title: const Text('Room'),
+              centerTitle: true,
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                title: const Text('Room'),
-                centerTitle: true,
-                backgroundColor: Colors.white,
-              ),
-              body: ListView(
-                children: [
-                  buildRoomDetail(),
-                ],
-              ));
+            ),
+            body: Stack(
+              children: [
+                buildRoomDetail(),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(50, 50),
+                        backgroundColor: HexColor('#38512f'),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('START'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
         }
       },
     );
