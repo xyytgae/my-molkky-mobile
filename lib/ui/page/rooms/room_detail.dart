@@ -7,7 +7,6 @@ import 'package:my_molkky_mobile/model/util/color.dart';
 
 class RoomDetailPage extends StatefulWidget {
   final String roomId;
-
   const RoomDetailPage({super.key, required this.roomId});
 
   @override
@@ -26,22 +25,8 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
   @override
   Widget build(BuildContext context) {
     buildRoomDetail() {
-      final StreamController<Room> roomController = StreamController();
       final StreamController<List<Player>> playerController =
           StreamController();
-
-      Stream<Room> getRoom() {
-        final snapshots = FirebaseFirestore.instance
-            .collection('rooms')
-            .doc(roomId)
-            .snapshots();
-        snapshots.listen((snapshot) {
-          final room = Room.fromFirestore(snapshot);
-          roomController.add(room);
-        });
-
-        return roomController.stream;
-      }
 
       Stream<List<Player>> getPlayers() {
         final snapshots = FirebaseFirestore.instance
@@ -105,12 +90,17 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
           });
     }
 
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
+    Future<Room> getRoom() async {
+      final document = await FirebaseFirestore.instance
           .collection('rooms')
           .doc(roomId)
-          .collection('players')
-          .snapshots(),
+          .get();
+
+      return Room.fromDocument(document);
+    }
+
+    return FutureBuilder(
+      future: getRoom(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
