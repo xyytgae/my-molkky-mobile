@@ -83,14 +83,34 @@ class _RoomsPageState extends State<RoomsPage> {
             return Scaffold(
                 backgroundColor: HexColor('#f2e4cf'),
                 appBar: AppBar(
-                  leading: IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                  ),
+                  // leading: IconButton(
+                  //   icon: const Icon(Icons.menu),
+                  //   onPressed: () {
+                  //     Scaffold.of(context).openDrawer();
+                  //   },
+                  // ),
+
+                  actions: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          side: BorderSide(
+                              color: HexColor('#38512f'),
+                              width: 1,
+                              style: BorderStyle.solid),
+                        ),
+                        child: Text('ログイン',
+                            style: TextStyle(color: HexColor('#38512f'))),
+                      ),
+                    ),
+                  ],
                   backgroundColor: Colors.white,
-                  title: const Text('My Molkky'),
+                  // title: const Text('My Molkky'),
                 ),
                 body: ListView(
                   children: [

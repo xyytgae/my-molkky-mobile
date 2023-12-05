@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:my_molkky_mobile/ui/page/rooms.dart';
+import 'package:my_molkky_mobile/ui/page/login.dart';
 import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -35,6 +36,14 @@ class Main extends StatelessWidget {
                   return RoomDetailPage(roomId: args.roomId);
                 },
               );
+            case '/login':
+              {
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return const LoginPage();
+                  },
+                );
+              }
             default:
               return null;
           }
