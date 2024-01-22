@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:my_molkky_mobile/model/room.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_molkky_mobile/model/util/color.dart';
-import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
+import 'package:sign_button/constants.dart';
+import 'package:sign_button/create_button.dart';
+import 'package:my_molkky_mobile/state/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,31 +18,45 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         backgroundColor: HexColor('#f2e4cf'),
         body: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 240.0),
-            child: Column(
-              children: <Widget>[
-                const Text(
-                  'ログイン',
-                  style: TextStyle(fontSize: 24.0, color: Colors.black),
+          child: Card(
+              color: Colors.white,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 80),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        'ログイン',
+                        style: TextStyle(
+                            fontSize: 24.0,
+                            color: HexColor('#38512f'),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    SignInButton(
+                        buttonType: ButtonType.google,
+                        onPressed: () {
+                          final state =
+                              Provider.of<AuthState>(context, listen: false);
+                          state.googleLogin();
+
+                          Navigator.pushNamed(context, '/rooms');
+                        }),
+                    const SizedBox(height: 50),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide(
-                        color: HexColor('#38512f'),
-                        width: 1,
-                        style: BorderStyle.solid),
-                  ),
-                  child: Text('Googleログイン',
-                      style: TextStyle(color: HexColor('#38512f'))),
-                ),
-              ],
-            ),
-          ),
+              )),
         ));
   }
 }

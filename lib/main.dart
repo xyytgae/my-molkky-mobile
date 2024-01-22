@@ -5,6 +5,8 @@ import 'package:my_molkky_mobile/ui/page/rooms.dart';
 import 'package:my_molkky_mobile/ui/page/login.dart';
 import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_molkky_mobile/state/auth_state.dart';
+import 'package:provider/provider.dart';
 
 final databaseReference = FirebaseFirestore.instance;
 void main() async {
@@ -19,35 +21,50 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'My Molkky',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: const HomePage(title: 'My Molkky'),
-        onGenerateRoute: (RouteSettings settings) {
-          switch (settings.name) {
-            case '/room':
-              final args = settings.arguments as RoomPageArguments;
-              return MaterialPageRoute(
-                builder: (context) {
-                  return RoomDetailPage(roomId: args.roomId);
-                },
-              );
-            case '/login':
-              {
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return const LoginPage();
-                  },
-                );
+    return MultiProvider(
+        providers: [
+          Provider<AuthState>(
+            create: (_) => AuthState(),
+          ),
+        ],
+        child: MaterialApp(
+            title: 'My Molkky',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: const HomePage(title: 'My Molkky'),
+            onGenerateRoute: (RouteSettings settings) {
+              switch (settings.name) {
+                case '/room':
+                  final args = settings.arguments as RoomPageArguments;
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return RoomDetailPage(roomId: args.roomId);
+                    },
+                  );
+                case '/rooms':
+                  {
+                    return MaterialPageRoute(
+                      builder: (context) {
+                        return const RoomsPage();
+                      },
+                    );
+                  }
+                case '/login':
+                  {
+                    return MaterialPageRoute(
+                      builder: (context) {
+                        return const LoginPage();
+                      },
+                    );
+                  }
+                default:
+                  return null;
               }
-            default:
-              return null;
-          }
-        });
+            }));
+    // ])
   }
 }
 
