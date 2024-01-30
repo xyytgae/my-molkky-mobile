@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class UserRepo {
   Future<UserModel?> get(String uid) async {
+    debugPrint('--------get user: $uid--------');
     try {
       final DocumentSnapshot userSnapshot =
-          await FirebaseFirestore.instance.collection('user').doc(uid).get();
-
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       if (userSnapshot.exists) {
         return UserModel.fromFirestore(userSnapshot);
       } else {
