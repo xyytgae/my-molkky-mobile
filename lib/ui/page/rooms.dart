@@ -5,6 +5,8 @@ import 'package:my_molkky_mobile/model/room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_molkky_mobile/model/util/color.dart';
 import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
+import 'package:my_molkky_mobile/state/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class RoomsPage extends StatefulWidget {
   const RoomsPage({super.key});
@@ -16,6 +18,7 @@ class RoomsPage extends StatefulWidget {
 class _RoomsPageState extends State<RoomsPage> {
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AuthState>(context, listen: true);
     buildRoomList() {
       final StreamController<List<Room>> allRoomsController =
           StreamController();
@@ -94,7 +97,8 @@ class _RoomsPageState extends State<RoomsPage> {
                     Container(
                       margin: const EdgeInsets.only(right: 10),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          state.logout();
                           Navigator.pushNamed(context, '/login');
                         },
                         style: ElevatedButton.styleFrom(
@@ -104,7 +108,8 @@ class _RoomsPageState extends State<RoomsPage> {
                               width: 1,
                               style: BorderStyle.solid),
                         ),
-                        child: Text('ログイン',
+                        child: Text(
+                            state.loginedUser != null ? 'ログアウト' : 'ログイン',
                             style: TextStyle(color: HexColor('#38512f'))),
                       ),
                     ),

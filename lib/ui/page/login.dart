@@ -46,12 +46,14 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 50),
                     SignInButton(
                         buttonType: ButtonType.google,
-                        onPressed: () {
+                        onPressed: () async {
                           final state =
                               Provider.of<AuthState>(context, listen: false);
-                          state.googleLogin();
-
-                          Navigator.pushNamed(context, '/rooms');
+                          state.googleLogin().then((_) {
+                            if (state.loginedUser != null) {
+                              Navigator.pushNamed(context, '/rooms');
+                            }
+                          });
                         }),
                     const SizedBox(height: 50),
                   ],
