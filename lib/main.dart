@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 final databaseReference = FirebaseFirestore.instance;
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
