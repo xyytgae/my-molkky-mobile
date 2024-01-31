@@ -5,6 +5,8 @@ import 'package:my_molkky_mobile/model/room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_molkky_mobile/model/util/color.dart';
 import 'package:my_molkky_mobile/ui/page/rooms/room_detail.dart';
+import 'package:my_molkky_mobile/state/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class RoomsPage extends StatefulWidget {
   const RoomsPage({super.key});
@@ -16,6 +18,7 @@ class RoomsPage extends StatefulWidget {
 class _RoomsPageState extends State<RoomsPage> {
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AuthState>(context, listen: true);
     buildRoomList() {
       final StreamController<List<Room>> allRoomsController =
           StreamController();
@@ -84,13 +87,38 @@ class _RoomsPageState extends State<RoomsPage> {
                 backgroundColor: HexColor('#f2e4cf'),
                 appBar: AppBar(
                   leading: IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
+                    icon: state.loginedUser == null
+                        ? const Icon(Icons.person)
+                        : CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(state.loginedUser!.iconImageUrl),
+                          ),
+                    onPressed: () {},
                   ),
+
+                  actions: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          state.logout();
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          side: BorderSide(
+                              color: HexColor('#38512f'),
+                              width: 1,
+                              style: BorderStyle.solid),
+                        ),
+                        child: Text(
+                            state.loginedUser != null ? 'ログアウト' : 'ログイン',
+                            style: TextStyle(color: HexColor('#38512f'))),
+                      ),
+                    ),
+                  ],
                   backgroundColor: Colors.white,
-                  title: const Text('My Molkky'),
+                  // title: const Text('My Molkky'),
                 ),
                 body: ListView(
                   children: [
