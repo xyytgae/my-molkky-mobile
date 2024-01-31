@@ -86,12 +86,15 @@ class _RoomsPageState extends State<RoomsPage> {
             return Scaffold(
                 backgroundColor: HexColor('#f2e4cf'),
                 appBar: AppBar(
-                  // leading: IconButton(
-                  //   icon: const Icon(Icons.menu),
-                  //   onPressed: () {
-                  //     Scaffold.of(context).openDrawer();
-                  //   },
-                  // ),
+                  leading: IconButton(
+                    icon: state.loginedUser == null
+                        ? const Icon(Icons.person)
+                        : CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(state.loginedUser!.iconImageUrl),
+                          ),
+                    onPressed: () {},
+                  ),
 
                   actions: [
                     Container(
