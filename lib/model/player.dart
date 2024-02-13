@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Player {
-  final String id;
+  late String id;
   final int order;
-  final bool elimination;
+  final bool? elimination;
   final String iconImageUrl;
-  final int firstHalfScore;
-  final int secondHalfScore;
-  final List<dynamic> scores;
-  final Timestamp createdAt;
+  final int? firstHalfScore;
+  final int? secondHalfScore;
+  final List<dynamic>? scores;
+  final Timestamp? createdAt;
   final String name;
   final int stars;
 
   Player({
     required this.id,
     required this.order,
-    required this.elimination,
+    this.elimination,
     required this.iconImageUrl,
-    required this.firstHalfScore,
-    required this.secondHalfScore,
-    required this.scores,
-    required this.createdAt,
+    this.firstHalfScore,
+    this.secondHalfScore,
+    this.scores,
+    this.createdAt,
     required this.name,
     required this.stars,
   });
@@ -71,30 +71,15 @@ class Player {
         stars: json['stars'] as int,
       );
 
-  Map<String, dynamic> toFirestore() {
-    return {
-      'id': id,
-      'order': order,
-      'elimination': elimination,
-      'iconImageUrl': iconImageUrl,
-      'firstHalfScore': firstHalfScore,
-      'secondHalfScore': secondHalfScore,
-      'scores': scores,
-      'createdAt': createdAt,
-      'name': name,
-      'stars': stars,
-    };
-  }
-
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toFirestore() => {
         'id': id,
         'order': order,
-        'elimination': elimination,
+        'elimination': elimination ?? false,
         'iconImageUrl': iconImageUrl,
-        'firstHalfScore': firstHalfScore,
-        'secondHalfScore': secondHalfScore,
-        'scores': scores,
-        'createdAt': createdAt,
+        'firstHalfScore': firstHalfScore ?? 0,
+        'secondHalfScore': secondHalfScore ?? 0,
+        'scores': scores ?? [],
+        'createdAt': createdAt ?? Timestamp.now(),
         'name': name,
         'stars': stars,
       };
