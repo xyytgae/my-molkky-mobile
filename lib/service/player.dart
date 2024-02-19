@@ -16,4 +16,19 @@ class PlayerRepo {
       debugPrint('error: $error');
     }
   }
+
+  Future<void> delete(String roomId, String playerId) async {
+    debugPrint('--------delete player: $playerId--------');
+    debugPrint('--------from room: $roomId--------');
+    try {
+      await FirebaseFirestore.instance
+          .collection('rooms')
+          .doc(roomId)
+          .collection('players')
+          .doc(playerId)
+          .delete();
+    } catch (error) {
+      debugPrint('error: $error');
+    }
+  }
 }
