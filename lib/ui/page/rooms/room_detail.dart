@@ -8,6 +8,7 @@ import 'package:my_molkky_mobile/service/room.dart';
 import 'package:my_molkky_mobile/service/player.dart';
 import 'package:my_molkky_mobile/state/auth_state.dart';
 import 'package:provider/provider.dart';
+import 'package:my_molkky_mobile/main.dart';
 
 class RoomDetailPage extends StatefulWidget {
   final String roomId;
@@ -17,11 +18,41 @@ class RoomDetailPage extends StatefulWidget {
   State<RoomDetailPage> createState() => _RoomDetailPageState();
 }
 
-class _RoomDetailPageState extends State<RoomDetailPage> {
+class _RoomDetailPageState extends State<RoomDetailPage> with RouteAware {
   String roomId = '';
 
   final RoomRepo roomRepo = RoomRepo();
   final PlayerRepo playerRepo = PlayerRepo();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  // この画面がpopされた際の処理
+  @override
+  void didPop() {
+    final state = Provider.of<AuthState>(context, listen: false);
+    if (state.loginedUser != null) {
+      playerRepo.delete(roomId, state.loginedUser!.id);
+    }
+  }
+
+  // この画面から新しい画面をpushした際の処理
+  @override
+  void didPushNext() {
+    final state = Provider.of<AuthState>(context, listen: false);
+    if (state.loginedUser != null) {
+      playerRepo.delete(roomId, state.loginedUser!.id);
+    }
+  }
 
   @override
   void initState() {

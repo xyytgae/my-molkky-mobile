@@ -9,6 +9,7 @@ import 'package:my_molkky_mobile/state/auth_state.dart';
 import 'package:provider/provider.dart';
 
 final databaseReference = FirebaseFirestore.instance;
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -64,7 +65,8 @@ class Main extends StatelessWidget {
                 default:
                   return null;
               }
-            }));
+            },
+            navigatorObservers: <NavigatorObserver>[routeObserver]));
     // ])
   }
 }
